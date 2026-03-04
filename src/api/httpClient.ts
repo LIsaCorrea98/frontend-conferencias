@@ -2,5 +2,5 @@
 import axios from 'axios';
 
 export const http = axios.create({
-  baseURL: 'http://localhost:8080/api', // ajusta al backend real
+  baseURL: 'http://localhost:8080/api',
 });

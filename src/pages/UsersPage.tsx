@@ -27,8 +27,7 @@ export const UsersPage = () => {
     await createUser({
       nombre: form.nombre,
       correo: form.correo,
-      rol: form.rol,
-      id: 0, // será ignorado por backend si no lo requiere
+      rol: form.rol
     } as any);
 
     setForm({ nombre: '', correo: '', rol: '' });
@@ -59,6 +58,7 @@ export const UsersPage = () => {
             <option value="PONENTE">Ponente</option>
             <option value="EVALUADOR">Evaluador</option>
             <option value="CHAIR">Chair</option>
+            <option value="ADMIN">Admin</option>
           </select>
           <button type="submit">Crear</button>
         </form>
