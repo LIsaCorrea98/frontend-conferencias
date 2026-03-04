@@ -1,5 +1,5 @@
 // src/types/user.ts
-export type UserRole = 'PONENTE' | 'EVALUADOR' | 'CHAIR';
+export type UserRole = 'PONENTE' | 'EVALUADOR' | 'CHAIR' | 'ADMIN';
 
 export interface User {
   id: number;
