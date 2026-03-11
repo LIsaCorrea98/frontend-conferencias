@@ -1,72 +1,49 @@
-import { NavLink } from 'react-router-dom';
-
-const linkStyle: React.CSSProperties = {
-  display: 'block',
-  padding: '0.75rem 1rem',
-  color: '#e5e7eb',
-  textDecoration: 'none',
-  fontSize: '0.95rem',
-  borderRadius: '0.375rem',
-};
-
-const activeStyle: React.CSSProperties = {
-  backgroundColor: '#1f2937',
-  color: '#ffffff',
-};
+// src/components/layout/Sidebar.tsx
+import { Link, useLocation } from 'react-router-dom';
+import { Home, Users, FolderKanban, CheckSquare, Settings } from 'lucide-react';
 
 export const Sidebar = () => {
-  return (
-    <aside
-      style={{
-        width: '240px',
-        background: '#111827',
-        color: '#e5e7eb',
-        padding: '1.5rem 1rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1.5rem',
-      }}
-    >
-      <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Conferencia</div>
+  const location = useLocation();
 
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <NavLink
-          to="/dashboard"
-          style={({ isActive }) => ({
-            ...linkStyle,
-            ...(isActive ? activeStyle : {}),
-          })}
-        >
-          Dashboard
-        </NavLink>
-        <NavLink
-          to="/usuarios"
-          style={({ isActive }) => ({
-            ...linkStyle,
-            ...(isActive ? activeStyle : {}),
-          })}
-        >
-          Usuarios
-        </NavLink>
-        <NavLink
-          to="/proyectos"
-          style={({ isActive }) => ({
-            ...linkStyle,
-            ...(isActive ? activeStyle : {}),
-          })}
-        >
-          Proyectos
-        </NavLink>
-        <NavLink
-          to="/tareas"
-          style={({ isActive }) => ({
-            ...linkStyle,
-            ...(isActive ? activeStyle : {}),
-          })}
-        >
-          Tareas
-        </NavLink>
+  const navItems = [
+    { name: 'Dashboard', path: '/dashboard', icon: <Home size={20} /> },
+    { name: 'Usuarios', path: '/usuarios', icon: <Users size={20} /> },
+    { name: 'Proyectos', path: '/proyectos', icon: <FolderKanban size={20} /> },
+    { name: 'Tareas', path: '/tareas', icon: <CheckSquare size={20} /> },
+  ];
+
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-logo">
+        <div style={{ background: 'var(--primary-color)', color: 'white', padding: '0.5rem', borderRadius: 'var(--radius-md)' }}>
+          <FolderKanban size={24} />
+        </div>
+        ETOMS
+      </div>
+
+      <nav className="sidebar-nav">
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path ||
+            (item.path !== '/' && location.pathname.startsWith(item.path));
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`nav-item ${isActive ? 'active' : ''}`}
+            >
+              {item.icon}
+              {item.name}
+            </Link>
+          );
+        })}
       </nav>
+
+      <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+        <a href="#" className="nav-item">
+          <Settings size={20} />
+          Configuración
+        </a>
+      </div>
     </aside>
   );
 };
